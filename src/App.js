@@ -5,6 +5,7 @@ import AddTask from "./components/AddTask";
 
 function App() {
   // App listen global events
+  const [showAddTask, setShowAddTask] = useState(false)
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -26,6 +27,12 @@ function App() {
     },
   ]);
 
+  const addTask = (task) => {
+    const id = Math.floor(Math.random() * 10000) +1   // Simula banco dados gerando id
+    const newTask = { id, ...task }
+    setTasks([...tasks, newTask])
+  }
+
   // Redux is better (have study)
   const deleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
@@ -41,9 +48,9 @@ function App() {
 
   return (
     <div className="container">
-      <Header />
+      <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
 
-      <AddTask />
+      {showAddTask && <AddTask onAdd={addTask} />}
 
       {tasks.length > 0 ? (
         <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} />
