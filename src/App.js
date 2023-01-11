@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "./components/Header";
 import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
@@ -6,35 +6,46 @@ import AddTask from "./components/AddTask";
 function App() {
   // App listen global events
   const [showAddTask, setShowAddTask] = useState(false)
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      text: "Consulta Médica",
-      day: "10 de Janeiro as 10:30am",
-      reminder: true,
-    },
-    {
-      id: 2,
-      text: "Curso",
-      day: "15 de Janeiro as 10:30am",
-      reminder: false,
-    },
-    {
-      id: 3,
-      text: "Prova",
-      day: "12 de Janeiro as 09:30am",
-      reminder: true,
-    },
-  ]);
+  const [tasks, setTasks] = useState([]);
 
-  const addTask = (task) => {
-    const id = Math.floor(Math.random() * 10000) +1   // Simula banco dados gerando id
-    const newTask = { id, ...task }
-    setTasks([...tasks, newTask])
+  useEffect(() => {
+    const getTasks = async () => {
+      const tasksFromServer = await fetchTasks()
+      setTasks(tasksFromServer)
+    }
+    getTasks()
+  }, [])
+
+  const fetchTasks = async () => {
+    const res = await fetch('http://localhost:5000/tasks')
+    const data = await res.json()
+    return data
+  }
+
+  const addTask = async (task) => {
+  const res = await fetch(`http://localhost:5000/tasks`, {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify(task)
+})
+
+const data = await res.json()
+
+setTasks([...tasks, data])
+
+    // const id = Math.floor(Math.random() * 10000) +1   // Simula banco dados gerando id
+    // const newTask = { id, ...task }
+    // setTasks([...tasks, newTask])
   }
 
   // Redux is better (have study)
-  const deleteTask = (id) => {
+  const deleteTask = async (id) => {
+    await fetch(`http://localhost:5000/tasks/${id}`, {
+      method: 'DELETE'
+    })
+
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
