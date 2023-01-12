@@ -1,28 +1,10 @@
 {
   "tasks": [
     {
-      "id": 1,
-      "text": "Consulta Médica",
-      "day": "10 de Janeiro as 10:30am",
-      "reminder": true
-    },
-    {
-      "id": 3,
-      "text": "Prova",
-      "day": "12 de Janeiro as 09:30am",
-      "reminder": true
-    },
-    {
-      "text": "Levar o Lixo",
-      "day": "12 de Janeiro as 5:00am",
+      "text": "Trabalho",
+      "day": "Segunda a Sábado de 06:40 as 15:00",
       "reminder": true,
-      "id": 4
-    },
-    {
-      "text": "Estudar",
-      "day": "12 de Janeiro as 13:00am",
-      "reminder": true,
-      "id": 5
+      "id": 1
     }
   ]
 }
