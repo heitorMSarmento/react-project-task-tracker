@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Header } from "./components/Header";
-import Tasks from "./components/Tasks";
-import AddTask from "./components/AddTask";
 import Footer from "./components/Footer";
 import About from "./components/About";
+import Tasks from "./components/Tasks";
+import AddTask from "./components/AddTask";
+import TaskDetails from "./components/TaskDetails";
+
+
 
 function App() {
   // App listen global events
@@ -88,10 +91,10 @@ function App() {
           onAdd={() => setShowAddTask(!showAddTask)}
           showAdd={showAddTask}
         />
-        <Routes
+        <Routes>
+        <Route
           path="/"
-          exact
-          render={(props) => (
+          element={
             <>
               {showAddTask && <AddTask onAdd={addTask} />}
 
@@ -105,9 +108,10 @@ function App() {
                 "Boa, você não tem tarefas pendentes!"
               )}
             </>
-          )}
-        />
-        <Routes path="/about" component={<About />} />
+          } />
+        <Route path="/about" element={<About />} />
+        <Route path="/tasks/:id" element={<TaskDetails />} />
+        </Routes>
         <Footer />
       </div>
     </Router>

@@ -5,6 +5,12 @@
       "day": "Segunda a Sábado de 06:40 as 15:00",
       "reminder": true,
       "id": 1
+    },
+    {
+      "text": "Estudar",
+      "day": "12 de Janeiro as 22:00",
+      "reminder": true,
+      "id": 2
     }
   ]
 }

@@ -71,6 +71,11 @@ body {
   justify-content: space-between;
 }
 
+.pathname {
+  padding-bottom: 10px;
+  color: darkgray;
+}
+
 .add-form {
   margin-bottom: 40px;
 }
